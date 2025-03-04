@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { FiEdit, FiTrash2, FiPlus, FiX, FiSave } from 'react-icons/fi';
+import { useState, useEffect, useRef } from 'react';
+import { FiEdit, FiTrash2, FiPlus, FiX, FiSave, FiUpload, FiImage } from 'react-icons/fi';
 import { getImageUrl } from '@/lib/image-utils';
 import { Photo } from '@/components/PhotoGallery';
+import Image from 'next/image';
 
 // Sample initial photos data
 const initialPhotos: Photo[] = [
@@ -56,6 +57,11 @@ const PhotoManager = () => {
     width: 1200,
     height: 800,
   });
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadError, setUploadError] = useState('');
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Load initial data
   useEffect(() => {
@@ -92,6 +98,7 @@ const PhotoManager = () => {
       width: 1200,
       height: 800,
     });
+    setPreviewImage(null);
   };
 
   const handleEdit = (photo: Photo) => {
@@ -107,6 +114,7 @@ const PhotoManager = () => {
       width: photo.width,
       height: photo.height,
     });
+    setPreviewImage(photo.image);
   };
 
   const handleDelete = (id: number) => {
@@ -115,12 +123,78 @@ const PhotoManager = () => {
     }
   };
 
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Create a preview of the image
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setPreviewImage(event.target?.result as string);
+    };
+    reader.readAsDataURL(file);
+
+    // Get image dimensions
+    const img = new window.Image();
+    img.onload = () => {
+      setFormData(prev => ({
+        ...prev,
+        width: img.width,
+        height: img.height
+      }));
+    };
+    img.src = URL.createObjectURL(file);
+
+    // Upload the file
+    await handleFileUpload(file);
+  };
+
+  const handleFileUpload = async (file: File) => {
+    setIsUploading(true);
+    setUploadProgress(0);
+    setUploadError('');
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to upload image');
+      }
+
+      const data = await response.json();
+      
+      // Update the form with the uploaded image path
+      setFormData(prev => ({
+        ...prev,
+        image: data.filePath
+      }));
+      
+      setUploadProgress(100);
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      setUploadError(error instanceof Error ? error.message : 'Failed to upload image');
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const triggerFileInput = () => {
+    fileInputRef.current?.click();
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Create image URL if it's just a path
+    // Create image URL if it's just a path and not an uploaded file
     let image = formData.image;
-    if (image && !image.includes('?')) {
+    if (image && !image.includes('?') && !image.startsWith('/uploads/')) {
       image = getImageUrl(image, formData.width, formData.height, formData.title);
     }
 
@@ -141,11 +215,13 @@ const PhotoManager = () => {
 
     setIsEditing(false);
     setCurrentPhoto(null);
+    setPreviewImage(null);
   };
 
   const handleCancel = () => {
     setIsEditing(false);
     setCurrentPhoto(null);
+    setPreviewImage(null);
   };
 
   return (
@@ -227,20 +303,76 @@ const PhotoManager = () => {
               />
             </div>
 
-            <div>
-              <label htmlFor="image" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Image Path
+            <div className="sm:col-span-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                Image
               </label>
-              <input
-                type="text"
-                name="image"
-                id="image"
-                required
-                value={formData.image}
-                onChange={handleInputChange}
-                placeholder="/images/your-image.jpg"
-                className="mt-1 block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:text-white"
-              />
+              
+              <div className="flex flex-col space-y-2">
+                {/* File upload button */}
+                <div className="flex items-center space-x-2">
+                  <button
+                    type="button"
+                    onClick={triggerFileInput}
+                    className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    <FiUpload className="mr-2 -ml-1 h-5 w-5" />
+                    Upload Image
+                  </button>
+                  
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    accept="image/*"
+                    className="hidden"
+                  />
+                  
+                  {/* Alternative: Manual path input */}
+                  <span className="text-sm text-gray-500 dark:text-gray-400">or</span>
+                  
+                  <input
+                    type="text"
+                    name="image"
+                    value={formData.image}
+                    onChange={handleInputChange}
+                    placeholder="Enter image path (e.g., /images/your-image.jpg)"
+                    className="flex-1 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:text-white"
+                  />
+                </div>
+                
+                {/* Upload progress */}
+                {isUploading && (
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                    <div 
+                      className="bg-blue-600 h-2.5 rounded-full" 
+                      style={{ width: `${uploadProgress}%` }}
+                    ></div>
+                  </div>
+                )}
+                
+                {/* Upload error */}
+                {uploadError && (
+                  <p className="text-sm text-red-600 dark:text-red-400">{uploadError}</p>
+                )}
+                
+                {/* Image preview */}
+                {previewImage && (
+                  <div className="mt-2 relative">
+                    <div className="relative w-full h-40 bg-gray-100 dark:bg-gray-700 rounded-md overflow-hidden">
+                      <Image
+                        src={previewImage}
+                        alt="Preview"
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                      {formData.width} × {formData.height} pixels
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-2">
