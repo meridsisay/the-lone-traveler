@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CldImage } from "next-cloudinary";
+import { CldImage, getCldImageUrl } from "next-cloudinary";
 import LogLine from "@/components/site/LogLine";
 import PostBody from "@/components/markdown/PostBody";
 import { db } from "@/lib/db";
@@ -42,6 +42,23 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.excerpt ?? undefined,
+    openGraph: post.coverMedia
+      ? {
+          images: [
+            {
+              url: getCldImageUrl({
+                src: post.coverMedia.publicId,
+                width: 1200,
+                height: 630,
+                crop: "fill",
+                gravity: "auto",
+              }),
+              width: 1200,
+              height: 630,
+            },
+          ],
+        }
+      : undefined,
   };
 }
 

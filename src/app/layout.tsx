@@ -23,11 +23,18 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+  ),
   title: {
     default: "The Lone Traveler",
     template: "%s · The Lone Traveler",
   },
   description: "Stories and photographs from a solo journey through the world.",
+  openGraph: {
+    siteName: "The Lone Traveler",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

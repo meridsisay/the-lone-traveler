@@ -2,6 +2,10 @@ import Link from "next/link";
 import { requireAdmin } from "@/lib/require-admin";
 import { signOut } from "@/lib/auth";
 
+// Admin is always rendered per-request: it depends on the session cookie and
+// live data, and must never be captured at build time.
+export const dynamic = "force-dynamic";
+
 const links = [
   { href: "/admin", label: "Desk" },
   { href: "/admin/posts", label: "Stories" },

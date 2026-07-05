@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Lone Traveler
 
-## Getting Started
+A personal travel + photography blog: public stories, destination hubs, and a
+gallery, with an owner-only admin desk for writing entries and uploading
+photographs and films.
 
-First, run the development server:
+**Stack**: Next.js 16 (App Router) · Tailwind CSS 4 · Neon Postgres + Prisma 7 ·
+Auth.js v5 (Google, single-account allowlist) · Cloudinary (signed uploads,
+image/video delivery) · Vercel
+
+## One-time setup
+
+Copy the env template and fill it in as you complete the three steps below:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1. Neon (database)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Create a project at https://console.neon.tech
+2. Copy the **pooled** connection string (host contains `-pooler`) → `DATABASE_URL`
+3. Copy the **direct** connection string → `DIRECT_URL`
+4. Run the first migration and seed:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npx prisma migrate dev --name init
+npx prisma db seed
+```
 
-## Learn More
+### 2. Google OAuth (admin sign-in)
 
-To learn more about Next.js, take a look at the following resources:
+1. https://console.cloud.google.com/apis/credentials → Create OAuth client ID
+   (type: Web application)
+2. Authorized redirect URI: `http://localhost:3000/api/auth/callback/google`
+   (add the production one after deploying: `https://YOUR-DOMAIN/api/auth/callback/google`)
+3. Client ID → `AUTH_GOOGLE_ID`, client secret → `AUTH_GOOGLE_SECRET`
+4. `ADMIN_EMAIL` = the Google account that owns the site (the only one allowed in)
+5. `AUTH_SECRET` = output of `npx auth secret` (or any long random string)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. Cloudinary (photos and films)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Create a free account at https://cloudinary.com
+2. From the dashboard copy: cloud name → `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`,
+   API key → `CLOUDINARY_API_KEY`, API secret → `CLOUDINARY_API_SECRET`
 
-## Deploy on Vercel
+## Run
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm install
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Public site: http://localhost:3000
+- Admin desk: http://localhost:3000/admin (Google sign-in, owner account only)
+
+## Deploy (Vercel)
+
+1. Push to GitHub and import the repo at https://vercel.com/new
+2. Add every variable from `.env.local` in Project Settings → Environment
+   Variables (set `NEXT_PUBLIC_SITE_URL` to the production URL)
+3. Add the production redirect URI to the Google OAuth client
+4. Deploy. Migrations: run `npx prisma migrate deploy` against Neon when the
+   schema changes (or wire it into the build command).
+
+## How content works
+
+- **Stories** are markdown. Media is embedded via the admin editor's
+  "Insert media" button, which writes `![alt](cld:image:<publicId>)` or
+  `![alt](cld:video:<publicId>)` — rendered as optimized Cloudinary images and
+  streams on the public site.
+- **Destinations** are first-class pages that gather their stories,
+  photographs, and films.
+- **Gallery** shows every media item marked "Show in public gallery".
+- Drafts are invisible publicly until published.
