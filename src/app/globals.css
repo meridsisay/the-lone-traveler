@@ -55,6 +55,62 @@ body {
   margin-right: 0.75rem;
 }
 
+/* Post body typography (markdown output) */
+.post-body {
+  color: var(--color-moonstone);
+  line-height: 1.75;
+}
+.post-body p {
+  margin-block: 1.25rem;
+}
+.post-body h2,
+.post-body h3 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+.post-body h2 {
+  font-size: 1.75rem;
+}
+.post-body h3 {
+  font-size: 1.375rem;
+}
+.post-body a {
+  color: var(--color-lowsun);
+  text-underline-offset: 3px;
+  text-decoration: underline;
+}
+.post-body blockquote {
+  border-left: 1px solid var(--color-lowsun);
+  padding-left: 1.25rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--color-haze);
+  margin-block: 2rem;
+}
+.post-body ul,
+.post-body ol {
+  padding-left: 1.5rem;
+  margin-block: 1.25rem;
+}
+.post-body ul {
+  list-style: disc;
+}
+.post-body ol {
+  list-style: decimal;
+}
+.post-body hr {
+  border: 0;
+  border-top: 1px solid var(--color-hairline);
+  margin-block: 3rem;
+}
+.post-body code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  color: var(--color-haze);
+}
+
 /* Single orchestrated entrance for hero caption plates */
 @media (prefers-reduced-motion: no-preference) {
   .rise {
