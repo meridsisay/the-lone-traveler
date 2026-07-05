@@ -1,26 +1,76 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Blue-hour palette */
+  --color-night: #0f1722;
+  --color-fathom: #16202e;
+  --color-ridge: #1e2b3c;
+  --color-moonstone: #e9edf1;
+  --color-haze: #93a1b0;
+  --color-lowsun: #e2a356;
+  --color-hairline: rgb(147 161 176 / 0.16);
 }
 
+/* Font vars come from next/font classes on <body>, so they must be
+   inlined into utilities rather than resolved at :root. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-spectral), ui-serif, Georgia, serif;
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-night);
+  color: var(--color-moonstone);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: rgb(226 163 86 / 0.28);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-lowsun);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Instrument label: the mono utility voice for eyebrows, nav, log lines */
+.instrument {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* The log line's horizon tick */
+.log-line::before {
+  content: "";
+  display: inline-block;
+  width: 1.25rem;
+  height: 1px;
+  background-color: var(--color-lowsun);
+  vertical-align: middle;
+  margin-right: 0.75rem;
+}
+
+/* Single orchestrated entrance for hero caption plates */
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .rise-late {
+    animation: rise 0.9s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
