@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CldImage } from "next-cloudinary";
+import { CldImage } from "@/components/cld";
 import PlaceholderScene from "@/components/site/PlaceholderScene";
 
 export type DestinationCardData = {

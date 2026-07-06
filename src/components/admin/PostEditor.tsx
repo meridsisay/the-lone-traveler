@@ -243,7 +243,7 @@ export default function PostEditor({
                   setSlug(e.target.value);
                   setSlugTouched(true);
                 }}
-                pattern="[a-z0-9-]+"
+                pattern="[a-z0-9\-]+"
                 className="mt-2 w-full border border-hairline bg-night px-3 py-2 text-sm text-moonstone"
               />
             </label>

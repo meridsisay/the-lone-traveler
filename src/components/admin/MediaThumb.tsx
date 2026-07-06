@@ -1,4 +1,4 @@
-import { CldImage } from "next-cloudinary";
+import { CldImage } from "@/components/cld";
 
 /** Small preview for library grids and pickers; videos show a generated poster frame. */
 export default function MediaThumb({

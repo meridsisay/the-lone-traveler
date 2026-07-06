@@ -6,7 +6,16 @@ export default function LogLine({
   parts: (string | null | undefined)[];
   className?: string;
 }) {
-  const text = parts.filter(Boolean).join(" · ");
+  const seen = new Set<string>();
+  const text = parts
+    .filter((p): p is string => !!p)
+    .filter((p) => {
+      const key = p.toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .join(" · ");
   if (!text) return null;
   return (
     <p className={`instrument log-line text-haze ${className}`}>{text}</p>

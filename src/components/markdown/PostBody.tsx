@@ -1,6 +1,9 @@
-import ReactMarkdown, { type Components } from "react-markdown";
+import ReactMarkdown, {
+  defaultUrlTransform,
+  type Components,
+} from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { CldImage } from "next-cloudinary";
+import { CldImage } from "@/components/cld";
 import CldVideo from "@/components/markdown/CldVideo";
 
 /**
@@ -64,7 +67,14 @@ const components: Components = {
 export default function PostBody({ content }: { content: string }) {
   return (
     <div className="post-body">
-      <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={components}
+        // react-markdown strips unknown protocols; keep our cld: media URIs.
+        urlTransform={(url) =>
+          url.startsWith("cld:") ? url : defaultUrlTransform(url)
+        }
+      >
         {content}
       </ReactMarkdown>
     </div>

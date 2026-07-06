@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CldImage, getCldImageUrl } from "next-cloudinary";
+import { getCldImageUrl } from "next-cloudinary";
+import { CldImage } from "@/components/cld";
 import LogLine from "@/components/site/LogLine";
 import PostBody from "@/components/markdown/PostBody";
 import { db } from "@/lib/db";

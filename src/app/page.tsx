@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CldImage } from "next-cloudinary";
+import { CldImage } from "@/components/cld";
 import LogLine from "@/components/site/LogLine";
 import PlaceholderScene from "@/components/site/PlaceholderScene";
 import PostCard from "@/components/site/PostCard";

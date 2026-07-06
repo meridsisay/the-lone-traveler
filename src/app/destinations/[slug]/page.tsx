@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CldImage } from "next-cloudinary";
+import { CldImage } from "@/components/cld";
 import LogLine from "@/components/site/LogLine";
 import PostCard from "@/components/site/PostCard";
 import GalleryGrid from "@/components/site/GalleryGrid";
