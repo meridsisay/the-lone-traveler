@@ -35,20 +35,20 @@ export default function MediaPicker({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-night/90 p-6 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-6 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-label="Choose media"
     >
-      <div className="flex max-h-[85svh] w-full max-w-3xl flex-col border border-hairline bg-fathom p-6">
+      <div className="flex max-h-[85svh] w-full max-w-3xl flex-col border border-hairline bg-sand p-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <p className="instrument text-lowsun">Choose media</p>
+          <p className="instrument text-cobalt">Choose media</p>
           <div className="flex items-center gap-3">
             <UploadButton />
             <button
               type="button"
               onClick={onClose}
-              className="instrument text-haze transition-colors hover:text-moonstone"
+              className="instrument text-inksoft transition-colors hover:text-ink"
             >
               Close
             </button>
@@ -58,10 +58,10 @@ export default function MediaPicker({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search by name or alt text"
-          className="mt-4 w-full border border-hairline bg-night px-3 py-2 text-sm text-moonstone"
+          className="mt-4 w-full border border-hairline bg-white px-3 py-2 text-sm text-ink"
         />
         {visible.length === 0 ? (
-          <p className="mt-8 text-center text-sm text-haze">
+          <p className="mt-8 text-center text-sm text-inksoft">
             No media yet. Upload something to get started.
           </p>
         ) : (

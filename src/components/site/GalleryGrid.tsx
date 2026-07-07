@@ -74,7 +74,7 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
               className="h-auto w-full"
             />
             {item.kind === "VIDEO" && (
-              <span className="instrument absolute bottom-2 left-2 bg-night/80 px-2 py-1 text-lowsun">
+              <span className="instrument absolute bottom-2 left-2 bg-ink/80 px-2 py-1 text-sunny">
                 Film
               </span>
             )}

@@ -23,6 +23,8 @@ model Destination {
   name         String
   country      String?
   summary      String?
+  latitude     Float?
+  longitude    Float?
   coverMedia   Media?  @relation("DestinationCover", fields: [coverMediaId], references: [id], onDelete: SetNull)
   coverMediaId String?
 

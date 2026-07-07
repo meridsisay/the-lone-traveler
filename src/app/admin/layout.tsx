@@ -25,7 +25,7 @@ export default async function AdminLayout({
       <header className="border-b border-hairline">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-4">
           <div className="flex flex-wrap items-center gap-6">
-            <Link href="/" className="font-display text-base text-moonstone">
+            <Link href="/" className="font-punch text-base font-bold text-ink">
               The Lone Traveler
             </Link>
             <nav className="flex flex-wrap gap-5">
@@ -33,7 +33,7 @@ export default async function AdminLayout({
                 <Link
                   key={href}
                   href={href}
-                  className="instrument text-haze transition-colors hover:text-lowsun"
+                  className="instrument text-inksoft transition-colors hover:text-cobalt"
                 >
                   {label}
                 </Link>
@@ -48,7 +48,7 @@ export default async function AdminLayout({
           >
             <button
               type="submit"
-              className="instrument text-haze transition-colors hover:text-lowsun"
+              className="instrument text-inksoft transition-colors hover:text-cobalt"
             >
               Sign out
             </button>

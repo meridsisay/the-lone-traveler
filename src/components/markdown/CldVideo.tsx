@@ -13,7 +13,7 @@ export default function CldVideo({ publicId }: { publicId: string }) {
       preload="metadata"
       playsInline
       poster={`${base}/q_auto,f_jpg,so_0/${publicId}.jpg`}
-      className="w-full bg-fathom"
+      className="w-full bg-sand"
     >
       <source src={`${base}/q_auto/${publicId}.mp4`} type="video/mp4" />
       Your browser can’t play this film.

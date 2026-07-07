@@ -42,7 +42,7 @@ export default function UploadButton({
         <button
           type="button"
           onClick={() => open()}
-          className="instrument border border-hairline px-5 py-2.5 text-moonstone transition-colors hover:border-lowsun hover:text-lowsun"
+          className="instrument border border-hairline px-5 py-2.5 text-ink transition-colors hover:border-cobalt hover:text-cobalt"
         >
           Upload media
         </button>

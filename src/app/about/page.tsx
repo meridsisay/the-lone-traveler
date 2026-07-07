@@ -8,13 +8,19 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <article className="mx-auto max-w-3xl px-6 pt-36 pb-24">
-      <p className="instrument text-lowsun">About</p>
-      <h1 className="mt-5 font-display text-4xl font-extralight leading-tight sm:text-5xl">
-        One traveler, one camera, no hurry.
+    <article className="mx-auto max-w-3xl px-6 pt-14 pb-24">
+      <p className="instrument text-poppy">About</p>
+      <h1 className="mt-4 font-punch text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl">
+        One traveler, one camera,{" "}
+        <em className="font-reader font-medium italic text-cobalt">
+          no hurry.
+        </em>
       </h1>
-      <LogLine parts={["Home base", "Somewhere between departures"]} className="mt-8" />
-      <div className="mt-12 space-y-6 leading-relaxed text-haze">
+      <LogLine
+        parts={["Home base", "Somewhere between departures"]}
+        className="mt-8"
+      />
+      <div className="mt-10 space-y-6 font-reader text-xl leading-relaxed text-inksoft">
         <p>
           The Lone Traveler is a personal field log — a place to keep the
           stories, photographs, and small films collected while traveling

@@ -13,7 +13,7 @@ export default function MediaThumb({
   size?: number;
 }) {
   return (
-    <div className="relative aspect-[4/3] overflow-hidden bg-fathom">
+    <div className="relative aspect-[4/3] overflow-hidden bg-sand">
       <CldImage
         src={publicId}
         alt={alt ?? ""}
@@ -27,7 +27,7 @@ export default function MediaThumb({
         className="h-full w-full object-cover"
       />
       {kind === "VIDEO" && (
-        <span className="instrument absolute bottom-2 left-2 bg-night/80 px-2 py-1 text-lowsun">
+        <span className="instrument absolute bottom-2 left-2 bg-ink/80 px-2 py-1 text-sunny">
           Film
         </span>
       )}

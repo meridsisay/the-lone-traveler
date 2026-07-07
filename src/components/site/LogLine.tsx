@@ -1,4 +1,4 @@
-/** The site's signature device: a mono caption stamping a moment with place and time. */
+/** The signature caption: a mono line stamping a moment with place and time. */
 export default function LogLine({
   parts,
   className = "",
@@ -17,7 +17,5 @@ export default function LogLine({
     })
     .join(" · ");
   if (!text) return null;
-  return (
-    <p className={`instrument log-line text-haze ${className}`}>{text}</p>
-  );
+  return <p className={`instrument log-line text-poppy ${className}`}>{text}</p>;
 }

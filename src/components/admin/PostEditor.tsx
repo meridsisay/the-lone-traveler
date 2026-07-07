@@ -142,7 +142,7 @@ export default function PostEditor({
     <div>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <p className="instrument text-lowsun">
+          <p className="instrument text-cobalt">
             {post ? "Edit story" : "New story"}
             {" · "}
             {status === "PUBLISHED" ? "Published" : "Draft"}
@@ -154,7 +154,7 @@ export default function PostEditor({
               if (!slugTouched) setSlug(slugify(e.target.value));
             }}
             placeholder="Story title"
-            className="mt-3 w-full max-w-2xl border-0 bg-transparent font-display text-3xl font-extralight text-moonstone placeholder:text-haze/50 focus:outline-none"
+            className="mt-3 w-full max-w-2xl border-0 bg-transparent font-punch text-3xl font-extrabold tracking-tight text-ink placeholder:text-inksoft/50 focus:outline-none"
           />
         </div>
         <div className="flex flex-wrap items-center gap-3">
@@ -162,7 +162,7 @@ export default function PostEditor({
             type="button"
             onClick={handleSave}
             disabled={pending || !title || !slug}
-            className="instrument border border-hairline px-5 py-2.5 text-moonstone transition-colors hover:border-lowsun hover:text-lowsun disabled:opacity-50"
+            className="instrument border border-hairline px-5 py-2.5 text-ink transition-colors hover:border-cobalt hover:text-cobalt disabled:opacity-50"
           >
             {post ? "Save" : "Create draft"}
           </button>
@@ -173,8 +173,8 @@ export default function PostEditor({
               disabled={pending}
               className={`instrument border px-5 py-2.5 transition-colors disabled:opacity-50 ${
                 status === "DRAFT"
-                  ? "border-lowsun text-lowsun hover:bg-lowsun hover:text-night"
-                  : "border-hairline text-haze hover:text-moonstone"
+                  ? "border-cobalt text-cobalt hover:bg-sunny hover:text-ink"
+                  : "border-hairline text-inksoft hover:text-ink"
               }`}
             >
               {status === "DRAFT" ? "Publish" : "Unpublish"}
@@ -185,7 +185,7 @@ export default function PostEditor({
               type="button"
               onClick={handleDelete}
               disabled={pending}
-              className="instrument px-2 py-2.5 text-haze transition-colors hover:text-red-300 disabled:opacity-50"
+              className="instrument px-2 py-2.5 text-inksoft transition-colors hover:text-poppy disabled:opacity-50"
             >
               Delete
             </button>
@@ -193,7 +193,7 @@ export default function PostEditor({
         </div>
       </div>
 
-      {notice && <p className="instrument mt-3 text-lowsun">{notice}</p>}
+      {notice && <p className="instrument mt-3 text-cobalt">{notice}</p>}
 
       <div className="mt-8 grid gap-6 lg:grid-cols-[2fr_1fr]">
         <div>
@@ -205,18 +205,18 @@ export default function PostEditor({
                   type="button"
                   onClick={() => setPane(p)}
                   className={`instrument ${
-                    pane === p ? "text-lowsun" : "text-haze"
+                    pane === p ? "text-cobalt" : "text-inksoft"
                   }`}
                 >
                   {p === "write" ? "Write" : "Preview"}
                 </button>
               ))}
             </div>
-            <p className="instrument hidden text-haze lg:block">Write</p>
+            <p className="instrument hidden text-inksoft lg:block">Write</p>
             <button
               type="button"
               onClick={() => setPicker("body")}
-              className="instrument text-haze transition-colors hover:text-lowsun"
+              className="instrument text-inksoft transition-colors hover:text-cobalt"
             >
               + Insert media
             </button>
@@ -227,16 +227,16 @@ export default function PostEditor({
             onChange={(e) => setContent(e.target.value)}
             rows={24}
             placeholder="Write in markdown. Use “Insert media” to drop photographs and films into the story."
-            className={`mt-4 w-full resize-y border border-hairline bg-fathom/30 p-4 font-mono text-sm leading-relaxed text-moonstone focus:outline-none ${
+            className={`mt-4 w-full resize-y border border-hairline bg-white p-4 font-mono text-sm leading-relaxed text-ink focus:outline-none ${
               pane === "preview" ? "hidden lg:block" : ""
             }`}
           />
         </div>
 
         <aside className="order-first lg:order-none">
-          <div className="space-y-4 border border-hairline bg-fathom/40 p-5">
+          <div className="space-y-4 border border-hairline bg-white p-5">
             <label className="block">
-              <span className="instrument text-haze">Slug</span>
+              <span className="instrument text-inksoft">Slug</span>
               <input
                 value={slug}
                 onChange={(e) => {
@@ -244,25 +244,25 @@ export default function PostEditor({
                   setSlugTouched(true);
                 }}
                 pattern="[a-z0-9\-]+"
-                className="mt-2 w-full border border-hairline bg-night px-3 py-2 text-sm text-moonstone"
+                className="mt-2 w-full border border-hairline bg-white px-3 py-2 text-sm text-ink"
               />
             </label>
             <label className="block">
-              <span className="instrument text-haze">Excerpt</span>
+              <span className="instrument text-inksoft">Excerpt</span>
               <textarea
                 value={excerpt}
                 onChange={(e) => setExcerpt(e.target.value)}
                 rows={2}
                 placeholder="One or two lines for cards and search results"
-                className="mt-2 w-full border border-hairline bg-night px-3 py-2 text-sm text-moonstone"
+                className="mt-2 w-full border border-hairline bg-white px-3 py-2 text-sm text-ink"
               />
             </label>
             <label className="block">
-              <span className="instrument text-haze">Destination</span>
+              <span className="instrument text-inksoft">Destination</span>
               <select
                 value={destinationId}
                 onChange={(e) => setDestinationId(e.target.value)}
-                className="mt-2 w-full border border-hairline bg-night px-3 py-2 text-sm text-moonstone"
+                className="mt-2 w-full border border-hairline bg-white px-3 py-2 text-sm text-ink"
               >
                 <option value="">None</option>
                 {destinations.map((d) => (
@@ -273,7 +273,7 @@ export default function PostEditor({
               </select>
             </label>
             <div>
-              <span className="instrument text-haze">Cover</span>
+              <span className="instrument text-inksoft">Cover</span>
               <div className="mt-2">
                 {cover ? (
                   <MediaThumb
@@ -283,13 +283,13 @@ export default function PostEditor({
                     size={280}
                   />
                 ) : (
-                  <p className="text-sm text-haze">No cover chosen.</p>
+                  <p className="text-sm text-inksoft">No cover chosen.</p>
                 )}
                 <div className="mt-2 flex gap-3">
                   <button
                     type="button"
                     onClick={() => setPicker("cover")}
-                    className="instrument text-haze transition-colors hover:text-lowsun"
+                    className="instrument text-inksoft transition-colors hover:text-cobalt"
                   >
                     {cover ? "Change" : "Choose cover"}
                   </button>
@@ -297,7 +297,7 @@ export default function PostEditor({
                     <button
                       type="button"
                       onClick={() => setCover(null)}
-                      className="instrument text-haze hover:text-moonstone"
+                      className="instrument text-inksoft hover:text-ink"
                     >
                       Remove
                     </button>
@@ -314,17 +314,17 @@ export default function PostEditor({
           pane === "write" ? "hidden lg:block" : ""
         }`}
       >
-        <p className="instrument text-haze">Preview</p>
+        <p className="instrument text-inksoft">Preview</p>
         <div className="mx-auto mt-6 max-w-2xl">
           {title && (
-            <h1 className="mb-8 font-display text-4xl font-extralight">
+            <h1 className="mb-8 font-punch text-4xl font-extrabold tracking-tight">
               {title}
             </h1>
           )}
           {content ? (
             <PostBody content={content} />
           ) : (
-            <p className="text-sm text-haze">
+            <p className="text-sm text-inksoft">
               The preview fills in as you write.
             </p>
           )}
