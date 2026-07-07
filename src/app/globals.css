@@ -17,6 +17,7 @@
   --font-display: var(--font-spectral), ui-serif, Georgia, serif;
   --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-block: var(--font-archivo-black), ui-sans-serif, sans-serif;
 }
 
 body {
@@ -109,6 +110,70 @@ body {
   font-family: var(--font-mono);
   font-size: 0.875em;
   color: var(--color-haze);
+}
+
+/* Type-as-window: photography clipped inside heavy letterforms */
+.photo-word-text {
+  display: block;
+  font-family: var(--font-block);
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  background-size: cover;
+  background-position: center 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(233 237 241 / 0.07);
+  transition: background-position 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.photo-word:hover .photo-word-text,
+.photo-word:focus-visible .photo-word-text {
+  background-position: center 38%;
+}
+
+/* Route line: the journey draws itself as you scroll */
+.route-path {
+  stroke: var(--color-lowsun);
+  stroke-opacity: 0.65;
+  fill: none;
+  stroke-width: 1.5;
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .route-path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: route-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 5% exit 90%;
+    }
+    @keyframes route-draw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  }
+}
+
+/* Cinema: full-viewport frames with horizontal snap */
+.cinema-reel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  height: 100svh;
+}
+.cinema-reel::-webkit-scrollbar {
+  display: none;
+}
+.cinema-frame {
+  position: relative;
+  flex: 0 0 100vw;
+  height: 100svh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow: hidden;
 }
 
 /* Single orchestrated entrance for hero caption plates */

@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { Spectral, Schibsted_Grotesk, IBM_Plex_Mono } from "next/font/google";
+import {
+  Spectral,
+  Schibsted_Grotesk,
+  IBM_Plex_Mono,
+  Archivo_Black,
+} from "next/font/google";
 import Navbar from "@/components/site/Navbar";
 import Footer from "@/components/site/Footer";
 import "./globals.css";
@@ -20,6 +25,12 @@ const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
   subsets: ["latin"],
   weight: ["400", "500"],
+});
+
+const archivoBlack = Archivo_Black({
+  variable: "--font-archivo-black",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -45,7 +56,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spectral.variable} ${schibsted.variable} ${plexMono.variable} flex min-h-svh flex-col`}
+        className={`${spectral.variable} ${schibsted.variable} ${plexMono.variable} ${archivoBlack.variable} flex min-h-svh flex-col`}
       >
         <Navbar />
         <main className="flex-1">{children}</main>
