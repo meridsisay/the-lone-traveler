@@ -18,6 +18,18 @@
   --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
   --font-block: var(--font-archivo-black), ui-sans-serif, sans-serif;
+  --font-punch: var(--font-bricolage), ui-sans-serif, sans-serif;
+  --font-reader: var(--font-newsreader), ui-serif, Georgia, serif;
+}
+
+@theme {
+  /* Sunlit palette (light prototype) */
+  --color-paper: #faf7f1;
+  --color-ink: #1e2b38;
+  --color-inksoft: #5b6b7a;
+  --color-cobalt: #2b59e0;
+  --color-sunny: #efa92e;
+  --color-poppy: #e4572e;
 }
 
 body {
@@ -174,6 +186,56 @@ body {
   scroll-snap-align: start;
   scroll-snap-stop: always;
   overflow: hidden;
+}
+
+/* Sunlit field desk: postcards, stamps, departures ticker */
+.postcard {
+  background: #fff;
+  padding: 0.625rem 0.625rem 1rem;
+  box-shadow:
+    0 1px 2px rgb(30 43 56 / 0.08),
+    0 12px 32px rgb(30 43 56 / 0.14);
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tilt-a {
+  transform: rotate(-2.25deg);
+}
+.tilt-b {
+  transform: rotate(1.5deg);
+}
+.tilt-c {
+  transform: rotate(-1deg);
+}
+a:hover .postcard,
+a:focus-visible .postcard {
+  transform: translateY(-6px);
+  box-shadow:
+    0 2px 4px rgb(30 43 56 / 0.08),
+    0 20px 44px rgb(30 43 56 / 0.18);
+}
+
+.ticker {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-track {
+  display: inline-flex;
+  gap: 3rem;
+  padding-right: 3rem;
+  width: max-content;
+  animation: ticker 32s linear infinite;
+}
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none;
+  }
 }
 
 /* Single orchestrated entrance for hero caption plates */

@@ -15,7 +15,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  if (pathname.startsWith("/admin")) return null;
+  if (pathname.startsWith("/admin") || pathname.startsWith("/preview/sunlit"))
+    return null;
 
   return (
     <header className="absolute inset-x-0 top-0 z-40">

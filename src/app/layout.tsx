@@ -4,6 +4,8 @@ import {
   Schibsted_Grotesk,
   IBM_Plex_Mono,
   Archivo_Black,
+  Bricolage_Grotesque,
+  Newsreader,
 } from "next/font/google";
 import Navbar from "@/components/site/Navbar";
 import Footer from "@/components/site/Footer";
@@ -33,6 +35,17 @@ const archivoBlack = Archivo_Black({
   weight: "400",
 });
 
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+});
+
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
@@ -56,7 +69,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spectral.variable} ${schibsted.variable} ${plexMono.variable} ${archivoBlack.variable} flex min-h-svh flex-col`}
+        className={`${spectral.variable} ${schibsted.variable} ${plexMono.variable} ${archivoBlack.variable} ${bricolage.variable} ${newsreader.variable} flex min-h-svh flex-col`}
       >
         <Navbar />
         <main className="flex-1">{children}</main>
