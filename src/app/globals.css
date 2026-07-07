@@ -1,72 +1,126 @@
 @import "tailwindcss";
 
 @theme {
-  /* Blue-hour palette */
-  --color-night: #0f1722;
-  --color-fathom: #16202e;
-  --color-ridge: #1e2b3c;
-  --color-moonstone: #e9edf1;
-  --color-haze: #93a1b0;
-  --color-lowsun: #e2a356;
-  --color-hairline: rgb(147 161 176 / 0.16);
+  /* Sunlit field desk palette */
+  --color-paper: #faf7f1;
+  --color-sand: #f4efe6;
+  --color-ink: #1e2b38;
+  --color-inksoft: #5b6b7a;
+  --color-cobalt: #2b59e0;
+  --color-sunny: #efa92e;
+  --color-poppy: #e4572e;
+  --color-hairline: rgb(30 43 56 / 0.12);
 }
 
-/* Font vars come from next/font classes on <body>, so they must be
-   inlined into utilities rather than resolved at :root. */
 @theme inline {
-  --font-display: var(--font-spectral), ui-serif, Georgia, serif;
+  --font-punch: var(--font-bricolage), ui-sans-serif, sans-serif;
+  --font-reader: var(--font-newsreader), ui-serif, Georgia, serif;
   --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 }
 
 body {
-  background-color: var(--color-night);
-  color: var(--color-moonstone);
-  font-family: var(--font-sans);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background-color: rgb(226 163 86 / 0.28);
+  background-color: rgb(239 169 46 / 0.4);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-lowsun);
+  outline: 2px solid var(--color-cobalt);
   outline-offset: 3px;
   border-radius: 2px;
 }
 
-/* Instrument label: the mono utility voice for eyebrows, nav, log lines */
+/* Instrument label: the mono voice for tickers, stamps, eyebrows, metadata */
 .instrument {
-  font-family: var(--font-mono);
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
   font-size: 0.6875rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
-/* The log line's horizon tick */
+/* The log line's compass tick */
 .log-line::before {
   content: "";
   display: inline-block;
   width: 1.25rem;
-  height: 1px;
-  background-color: var(--color-lowsun);
+  height: 2px;
+  background-color: var(--color-poppy);
   vertical-align: middle;
   margin-right: 0.75rem;
 }
 
+/* Postcards: photographs as prints on the desk */
+.postcard {
+  background: #fff;
+  padding: 0.625rem 0.625rem 1rem;
+  box-shadow:
+    0 1px 2px rgb(30 43 56 / 0.08),
+    0 12px 32px rgb(30 43 56 / 0.14);
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tilt-a {
+  transform: rotate(-2.25deg);
+}
+.tilt-b {
+  transform: rotate(1.5deg);
+}
+.tilt-c {
+  transform: rotate(-1deg);
+}
+a:hover .postcard,
+a:focus-visible .postcard {
+  transform: translateY(-6px);
+  box-shadow:
+    0 2px 4px rgb(30 43 56 / 0.08),
+    0 20px 44px rgb(30 43 56 / 0.18);
+}
+
+/* Departures ticker */
+.ticker {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-track {
+  display: inline-flex;
+  gap: 3rem;
+  padding-right: 3rem;
+  width: max-content;
+  animation: ticker 32s linear infinite;
+}
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none;
+  }
+}
+
 /* Post body typography (markdown output) */
 .post-body {
-  color: var(--color-moonstone);
-  line-height: 1.75;
+  color: var(--color-ink);
+  font-family: var(--font-newsreader), ui-serif, Georgia, serif;
+  font-size: 1.1875rem;
+  line-height: 1.8;
 }
 .post-body p {
-  margin-block: 1.25rem;
+  margin-block: 1.4rem;
 }
 .post-body h2,
 .post-body h3 {
-  font-family: var(--font-display);
-  font-weight: 300;
+  font-family: var(--font-bricolage), ui-sans-serif, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   margin-top: 3rem;
   margin-bottom: 1rem;
 }
@@ -77,22 +131,25 @@ body {
   font-size: 1.375rem;
 }
 .post-body a {
-  color: var(--color-lowsun);
-  text-underline-offset: 3px;
+  color: var(--color-cobalt);
   text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.post-body a:hover {
+  color: var(--color-poppy);
 }
 .post-body blockquote {
-  border-left: 1px solid var(--color-lowsun);
+  border-left: 3px solid var(--color-sunny);
   padding-left: 1.25rem;
-  font-family: var(--font-display);
   font-style: italic;
-  color: var(--color-haze);
+  color: var(--color-inksoft);
   margin-block: 2rem;
 }
 .post-body ul,
 .post-body ol {
   padding-left: 1.5rem;
-  margin-block: 1.25rem;
+  margin-block: 1.4rem;
 }
 .post-body ul {
   list-style: disc;
@@ -102,16 +159,27 @@ body {
 }
 .post-body hr {
   border: 0;
-  border-top: 1px solid var(--color-hairline);
+  border-top: 2px solid var(--color-hairline);
   margin-block: 3rem;
 }
 .post-body code {
-  font-family: var(--font-mono);
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
   font-size: 0.875em;
-  color: var(--color-haze);
+  color: var(--color-inksoft);
+}
+.post-body figure {
+  margin-block: 2.5rem;
+}
+.post-body figure > img,
+.post-body figure > video {
+  background: #fff;
+  padding: 0.625rem;
+  box-shadow:
+    0 1px 2px rgb(30 43 56 / 0.08),
+    0 12px 32px rgb(30 43 56 / 0.14);
 }
 
-/* Single orchestrated entrance for hero caption plates */
+/* Single orchestrated entrance for hero elements */
 @media (prefers-reduced-motion: no-preference) {
   .rise {
     animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;

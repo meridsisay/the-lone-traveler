@@ -81,59 +81,52 @@ export default async function StoryPage({
   if (!post) notFound();
 
   return (
-    <article>
-      {post.coverMedia ? (
-        <div className="relative flex min-h-[70svh] flex-col justify-end">
-          <div className="absolute inset-0 -z-10">
+    <article className="pb-24">
+      <header className="mx-auto max-w-3xl px-6 pt-14">
+        <LogLine
+          parts={[
+            post.destination?.name,
+            post.destination?.country,
+            formatDate(post.publishedAt),
+          ]}
+        />
+        <h1 className="mt-5 font-punch text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl">
+          {post.title}
+        </h1>
+        {post.excerpt && (
+          <p className="mt-6 font-reader text-xl italic leading-relaxed text-inksoft">
+            {post.excerpt}
+          </p>
+        )}
+      </header>
+
+      {post.coverMedia && (
+        <div className="mx-auto max-w-4xl px-6 pt-12">
+          <figure className="postcard">
             <CldImage
               src={post.coverMedia.publicId}
               alt={post.coverMedia.alt ?? post.title}
-              fill
-              priority
+              width={1600}
+              height={1000}
               crop="fill"
               gravity="auto"
               quality="auto"
               format="auto"
-              sizes="100vw"
-              className="object-cover"
+              priority
+              sizes="(max-width: 896px) 100vw, 896px"
+              className="aspect-[16/10] w-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-night via-night/25 to-night/20" />
-          </div>
-          <header className="mx-auto w-full max-w-3xl px-6 pb-16">
-            <LogLine
-              parts={[
-                post.destination?.name,
-                post.destination?.country,
-                formatDate(post.publishedAt),
-              ]}
-            />
-            <h1 className="mt-5 font-display text-4xl font-extralight leading-tight sm:text-6xl">
-              {post.title}
-            </h1>
-          </header>
+          </figure>
         </div>
-      ) : (
-        <header className="mx-auto w-full max-w-3xl px-6 pt-36 pb-4">
-          <LogLine
-            parts={[
-              post.destination?.name,
-              post.destination?.country,
-              formatDate(post.publishedAt),
-            ]}
-          />
-          <h1 className="mt-5 font-display text-4xl font-extralight leading-tight sm:text-6xl">
-            {post.title}
-          </h1>
-        </header>
       )}
 
-      <div className="mx-auto max-w-3xl px-6 py-16">
+      <div className="mx-auto max-w-3xl px-6 pt-14">
         <PostBody content={post.content} />
         {post.destination && (
-          <p className="mt-16 border-t border-hairline pt-8">
+          <p className="mt-16 border-t-2 border-hairline pt-8">
             <Link
               href={`/destinations/${post.destination.slug}`}
-              className="instrument text-haze transition-colors hover:text-lowsun"
+              className="instrument text-cobalt underline decoration-2 underline-offset-8 transition-colors hover:text-poppy"
             >
               More from {post.destination.name} →
             </Link>

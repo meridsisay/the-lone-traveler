@@ -1,13 +1,23 @@
 import type { Metadata } from "next";
-import { Spectral, Schibsted_Grotesk, IBM_Plex_Mono } from "next/font/google";
+import {
+  Bricolage_Grotesque,
+  Newsreader,
+  Schibsted_Grotesk,
+  IBM_Plex_Mono,
+} from "next/font/google";
 import Navbar from "@/components/site/Navbar";
 import Footer from "@/components/site/Footer";
+import Ticker from "@/components/site/Ticker";
 import "./globals.css";
 
-const spectral = Spectral({
-  variable: "--font-spectral",
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
-  weight: ["200", "300", "400"],
+});
+
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
   style: ["normal", "italic"],
 });
 
@@ -45,8 +55,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spectral.variable} ${schibsted.variable} ${plexMono.variable} flex min-h-svh flex-col`}
+        className={`${bricolage.variable} ${newsreader.variable} ${schibsted.variable} ${plexMono.variable} flex min-h-svh flex-col`}
       >
+        <Ticker />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

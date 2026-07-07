@@ -18,11 +18,11 @@ export default function Navbar() {
   if (pathname.startsWith("/admin")) return null;
 
   return (
-    <header className="absolute inset-x-0 top-0 z-40">
+    <header className="relative z-40">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
         <Link
           href="/"
-          className="font-display text-lg tracking-wide text-moonstone"
+          className="font-punch text-xl font-extrabold tracking-tight text-ink"
           onClick={() => setOpen(false)}
         >
           The Lone Traveler
@@ -30,7 +30,7 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="instrument text-haze sm:hidden"
+          className="instrument text-inksoft sm:hidden"
           aria-expanded={open}
           aria-controls="site-menu"
           onClick={() => setOpen((v) => !v)}
@@ -42,7 +42,7 @@ export default function Navbar() {
           id="site-menu"
           className={`${
             open ? "flex" : "hidden"
-          } absolute inset-x-0 top-full flex-col gap-5 bg-night/95 px-6 py-6 backdrop-blur sm:static sm:flex sm:flex-row sm:items-center sm:gap-8 sm:bg-transparent sm:p-0 sm:backdrop-blur-none`}
+          } absolute inset-x-0 top-full flex-col gap-5 border-b-2 border-hairline bg-paper px-6 py-6 sm:static sm:flex sm:flex-row sm:items-center sm:gap-7 sm:border-0 sm:p-0`}
         >
           {links.map(({ href, label }) => {
             const active = pathname.startsWith(href);
@@ -52,7 +52,9 @@ export default function Navbar() {
                   href={href}
                   onClick={() => setOpen(false)}
                   className={`instrument transition-colors ${
-                    active ? "text-lowsun" : "text-haze hover:text-moonstone"
+                    active
+                      ? "text-cobalt underline decoration-2 underline-offset-8"
+                      : "text-inksoft hover:text-cobalt"
                   }`}
                 >
                   {label}

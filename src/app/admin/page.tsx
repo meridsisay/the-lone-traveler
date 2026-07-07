@@ -27,8 +27,8 @@ const shortcuts = [
 export default function AdminDashboard() {
   return (
     <div>
-      <p className="instrument text-lowsun">Field desk</p>
-      <h1 className="mt-3 font-display text-3xl font-extralight">
+      <p className="instrument text-cobalt">Field desk</p>
+      <h1 className="mt-3 font-punch text-3xl font-extrabold tracking-tight">
         Welcome back.
       </h1>
       <div className="mt-10 grid gap-4 sm:grid-cols-3">
@@ -36,12 +36,12 @@ export default function AdminDashboard() {
           <Link
             key={href}
             href={href}
-            className="group border border-hairline bg-fathom/40 p-6 transition-colors hover:border-lowsun/60"
+            className="group border border-hairline bg-white p-6 transition-colors hover:border-cobalt/60"
           >
-            <p className="font-display text-xl font-light text-moonstone group-hover:text-lowsun">
+            <p className="font-punch text-xl font-bold text-ink group-hover:text-cobalt">
               {title}
             </p>
-            <p className="mt-2 text-sm text-haze">{hint}</p>
+            <p className="mt-2 text-sm text-inksoft">{hint}</p>
           </Link>
         ))}
       </div>

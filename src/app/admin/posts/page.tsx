@@ -17,14 +17,14 @@ export default async function AdminPostsPage() {
     <div>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <p className="instrument text-lowsun">Stories</p>
-          <h1 className="mt-3 font-display text-3xl font-extralight">
+          <p className="instrument text-cobalt">Stories</p>
+          <h1 className="mt-3 font-punch text-3xl font-extrabold tracking-tight">
             The journal
           </h1>
         </div>
         <Link
           href="/admin/posts/new"
-          className="instrument border border-hairline px-5 py-2.5 text-moonstone transition-colors hover:border-lowsun hover:text-lowsun"
+          className="instrument border border-hairline px-5 py-2.5 text-ink transition-colors hover:border-cobalt hover:text-cobalt"
         >
           Write a story
         </Link>
@@ -32,10 +32,10 @@ export default async function AdminPostsPage() {
 
       {posts.length === 0 ? (
         <div className="mt-12 border-t border-hairline pt-12 text-center">
-          <p className="font-display text-2xl font-extralight italic">
+          <p className="font-reader text-2xl italic">
             Nothing written yet.
           </p>
-          <p className="mx-auto mt-3 max-w-md text-sm text-haze">
+          <p className="mx-auto mt-3 max-w-md text-sm text-inksoft">
             Start the first entry — it stays a draft until you publish it.
           </p>
         </div>
@@ -48,10 +48,10 @@ export default async function AdminPostsPage() {
                 className="group flex flex-wrap items-center justify-between gap-3 py-4"
               >
                 <div>
-                  <p className="font-display text-xl font-light text-moonstone group-hover:text-lowsun">
+                  <p className="font-punch text-xl font-bold text-ink group-hover:text-cobalt">
                     {p.title}
                   </p>
-                  <p className="instrument mt-1 text-haze">
+                  <p className="instrument mt-1 text-inksoft">
                     {p.status === "PUBLISHED" ? "Published" : "Draft"}
                     {p.destination && ` · ${p.destination.name}`}
                     {" · updated "}
@@ -64,7 +64,7 @@ export default async function AdminPostsPage() {
                 </div>
                 <span
                   className={`instrument ${
-                    p.status === "PUBLISHED" ? "text-lowsun" : "text-haze"
+                    p.status === "PUBLISHED" ? "text-cobalt" : "text-inksoft"
                   }`}
                 >
                   {p.status === "PUBLISHED" ? "Live" : "Draft"}

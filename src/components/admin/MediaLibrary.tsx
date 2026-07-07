@@ -73,22 +73,22 @@ export default function MediaLibrary({
     <div>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <p className="instrument text-lowsun">Media</p>
-          <h1 className="mt-3 font-display text-3xl font-extralight">
+          <p className="instrument text-cobalt">Media</p>
+          <h1 className="mt-3 font-punch text-3xl font-extrabold tracking-tight">
             The library
           </h1>
         </div>
         <UploadButton />
       </div>
 
-      {notice && <p className="instrument mt-4 text-lowsun">{notice}</p>}
+      {notice && <p className="instrument mt-4 text-cobalt">{notice}</p>}
 
       {media.length === 0 ? (
         <div className="mt-12 border-t border-hairline pt-12 text-center">
-          <p className="font-display text-2xl font-extralight italic">
+          <p className="font-reader text-2xl italic">
             Nothing here yet.
           </p>
-          <p className="mx-auto mt-3 max-w-md text-sm text-haze">
+          <p className="mx-auto mt-3 max-w-md text-sm text-inksoft">
             Upload photographs and films; they become available for stories,
             covers, and the public gallery.
           </p>
@@ -105,7 +105,7 @@ export default function MediaLibrary({
               }}
               className={`text-left transition-opacity ${
                 selectedId && m.id !== selectedId ? "opacity-50" : ""
-              } ${m.id === selectedId ? "outline outline-2 outline-lowsun" : ""}`}
+              } ${m.id === selectedId ? "outline outline-2 outline-cobalt" : ""}`}
             >
               <MediaThumb publicId={m.publicId} kind={m.kind} alt={m.alt} />
             </button>
@@ -116,32 +116,32 @@ export default function MediaLibrary({
       {selected && (
         <form
           action={handleSave}
-          className="mt-8 grid gap-4 border border-hairline bg-fathom/40 p-6 sm:grid-cols-2"
+          className="mt-8 grid gap-4 border border-hairline bg-white p-6 sm:grid-cols-2"
         >
           <label className="block">
-            <span className="instrument text-haze">Alt text</span>
+            <span className="instrument text-inksoft">Alt text</span>
             <input
               name="alt"
               defaultValue={selected.alt ?? ""}
-              className="mt-2 w-full border border-hairline bg-night px-3 py-2 text-sm text-moonstone"
+              className="mt-2 w-full border border-hairline bg-white px-3 py-2 text-sm text-ink"
               placeholder="What the photograph shows"
             />
           </label>
           <label className="block">
-            <span className="instrument text-haze">Caption</span>
+            <span className="instrument text-inksoft">Caption</span>
             <input
               name="caption"
               defaultValue={selected.caption ?? ""}
-              className="mt-2 w-full border border-hairline bg-night px-3 py-2 text-sm text-moonstone"
+              className="mt-2 w-full border border-hairline bg-white px-3 py-2 text-sm text-ink"
               placeholder="Shown under the image"
             />
           </label>
           <label className="block">
-            <span className="instrument text-haze">Destination</span>
+            <span className="instrument text-inksoft">Destination</span>
             <select
               name="destinationId"
               defaultValue={selected.destinationId ?? ""}
-              className="mt-2 w-full border border-hairline bg-night px-3 py-2 text-sm text-moonstone"
+              className="mt-2 w-full border border-hairline bg-white px-3 py-2 text-sm text-ink"
             >
               <option value="">None</option>
               {destinations.map((d) => (
@@ -156,15 +156,15 @@ export default function MediaLibrary({
               type="checkbox"
               name="inGallery"
               defaultChecked={selected.inGallery}
-              className="accent-lowsun"
+              className="accent-cobalt"
             />
-            <span className="text-sm text-haze">Show in public gallery</span>
+            <span className="text-sm text-inksoft">Show in public gallery</span>
           </label>
           <div className="flex gap-3 sm:col-span-2">
             <button
               type="submit"
               disabled={pending}
-              className="instrument border border-hairline px-5 py-2.5 text-moonstone transition-colors hover:border-lowsun hover:text-lowsun disabled:opacity-50"
+              className="instrument border border-hairline px-5 py-2.5 text-ink transition-colors hover:border-cobalt hover:text-cobalt disabled:opacity-50"
             >
               Save changes
             </button>
@@ -172,7 +172,7 @@ export default function MediaLibrary({
               type="button"
               disabled={pending}
               onClick={() => handleDelete()}
-              className="instrument border border-hairline px-5 py-2.5 text-haze transition-colors hover:border-red-400 hover:text-red-300 disabled:opacity-50"
+              className="instrument border border-hairline px-5 py-2.5 text-inksoft transition-colors hover:border-poppy hover:text-poppy disabled:opacity-50"
             >
               Delete
             </button>

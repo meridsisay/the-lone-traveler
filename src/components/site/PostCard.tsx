@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { CldImage } from "@/components/cld";
-import LogLine from "@/components/site/LogLine";
 import PlaceholderScene from "@/components/site/PlaceholderScene";
 
 export type PostCardData = {
@@ -16,7 +15,9 @@ function formatMonth(date: Date | null) {
   return date?.toLocaleDateString("en-US", { month: "long", year: "numeric" });
 }
 
-/** Editorial row: text left, photograph right. `index` seeds the placeholder. */
+const tilts = ["tilt-a", "tilt-b", "tilt-c"];
+
+/** A story on the desk: postcard print left, entry details right. */
 export default function PostCard({
   post,
   index = 0,
@@ -27,37 +28,44 @@ export default function PostCard({
   return (
     <Link
       href={`/stories/${post.slug}`}
-      className="group grid gap-6 py-10 sm:grid-cols-[1fr_260px] sm:items-center"
+      className="group grid items-center gap-8 py-10 sm:grid-cols-[280px_1fr]"
     >
-      <div>
-        <LogLine
-          parts={[post.destination?.name, formatMonth(post.publishedAt)]}
-        />
-        <h3 className="mt-4 font-display text-3xl font-extralight text-moonstone transition-colors group-hover:text-lowsun">
-          {post.title}
-        </h3>
-        {post.excerpt && (
-          <p className="mt-3 max-w-xl leading-relaxed text-haze">
-            {post.excerpt}
-          </p>
-        )}
-      </div>
-      <div className="aspect-[4/3] overflow-hidden">
+      <figure className={`postcard ${tilts[index % 3]} w-full max-w-[280px]`}>
         {post.coverMedia ? (
           <CldImage
             src={post.coverMedia.publicId}
             alt={post.coverMedia.alt ?? post.title}
-            width={520}
-            height={390}
+            width={560}
+            height={420}
             crop="fill"
             gravity="auto"
             quality="auto"
             format="auto"
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            className="aspect-[4/3] w-full object-cover"
           />
         ) : (
-          <PlaceholderScene seed={index + 2} />
+          <div className="aspect-[4/3] w-full">
+            <PlaceholderScene seed={index + 2} />
+          </div>
         )}
+      </figure>
+      <div>
+        <p className="instrument text-poppy">
+          {[post.destination?.name, formatMonth(post.publishedAt)]
+            .filter(Boolean)
+            .join(" · ")}
+        </p>
+        <h3 className="mt-3 font-punch text-3xl font-extrabold tracking-tight text-ink transition-colors group-hover:text-cobalt sm:text-4xl">
+          {post.title}
+        </h3>
+        {post.excerpt && (
+          <p className="mt-4 max-w-xl font-reader text-lg leading-relaxed text-inksoft">
+            {post.excerpt}
+          </p>
+        )}
+        <p className="instrument mt-5 text-cobalt underline decoration-2 underline-offset-8">
+          Read the entry
+        </p>
       </div>
     </Link>
   );

@@ -28,7 +28,7 @@ function CldFigure({ publicId, alt }: { publicId: string; alt: string }) {
         className="h-auto w-full"
       />
       {alt && (
-        <figcaption className="instrument mt-3 text-haze">{alt}</figcaption>
+        <figcaption className="instrument mt-3 text-inksoft">{alt}</figcaption>
       )}
     </figure>
   );
@@ -45,7 +45,7 @@ const components: Components = {
         <figure className="my-10">
           <CldVideo publicId={source.slice(10)} />
           {alt && (
-            <figcaption className="instrument mt-3 text-haze">{alt}</figcaption>
+            <figcaption className="instrument mt-3 text-inksoft">{alt}</figcaption>
           )}
         </figure>
       );

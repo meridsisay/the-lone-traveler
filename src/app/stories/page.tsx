@@ -23,22 +23,17 @@ export default async function StoriesPage() {
   );
 
   return (
-    <div className="mx-auto max-w-6xl px-6 pt-36 pb-24">
-      <p className="instrument text-lowsun">Stories</p>
-      <h1 className="mt-5 font-display text-4xl font-extralight sm:text-5xl">
+    <div className="mx-auto max-w-6xl px-6 pt-14 pb-24">
+      <p className="instrument text-poppy">Stories</p>
+      <h1 className="mt-4 font-punch text-5xl font-extrabold tracking-tight sm:text-6xl">
         Field notes from far away
       </h1>
       {posts.length === 0 ? (
-        <div className="mt-16 border-t border-hairline pt-16 text-center">
-          <p className="font-display text-2xl font-extralight italic">
-            No stories logged yet.
-          </p>
-          <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-haze">
-            The first entry is on its way.
-          </p>
-        </div>
+        <p className="mt-14 font-reader text-xl italic text-inksoft">
+          No stories logged yet — the first entry is on its way.
+        </p>
       ) : (
-        <div className="mt-10 divide-y divide-hairline border-t border-hairline">
+        <div className="mt-12 divide-y-2 divide-hairline border-t-2 border-hairline">
           {posts.map((post, i) => (
             <PostCard key={post.slug} post={post} index={i} />
           ))}
