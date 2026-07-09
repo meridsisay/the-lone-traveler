@@ -158,6 +158,19 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* The credo */}
+      <section className="border-t-2 border-hairline">
+        <figure className="mx-auto max-w-3xl px-6 py-24 text-center">
+          <blockquote className="font-reader text-3xl italic leading-snug text-ink sm:text-4xl">
+            “With my photographs, I endeavor to capture the essence of what I
+            was feeling there”
+          </blockquote>
+          <figcaption className="instrument log-line mt-8 inline-block text-poppy">
+            Alex Del Rio
+          </figcaption>
+        </figure>
+      </section>
+
       {/* The passport */}
       {destinations.length > 0 && (
         <section className="border-t-2 border-hairline bg-sand">
