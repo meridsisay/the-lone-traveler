@@ -46,3 +46,6 @@ src/generated/
 
 # Neon local context
 .neon
+
+.vercel
+.env*
